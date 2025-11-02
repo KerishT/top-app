@@ -1,5 +1,4 @@
-import { Htag } from "@/components";
-import { Button } from "@/components/Button/Button";
+import { Button, Htag, P } from "@/components";
 
 export default function Home() {
   return (
@@ -9,6 +8,7 @@ export default function Home() {
       <Button appearance="ghost" arrow="down">
         Button
       </Button>
+      <P>Test</P>
     </>
   );
 }
