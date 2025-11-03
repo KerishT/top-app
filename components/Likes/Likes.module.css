@@ -1,0 +1,19 @@
+.likes {
+	box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	padding: 4px;
+	font-size: 12px;
+    line-height: 16px;
+    color: #808080;
+	cursor: pointer;
+    background: none;
+	border: none;
+	transition: all 0.2s;
+}
+
+.counter {
+    margin-top: 2px;
+    margin-right: 2px;
+}
