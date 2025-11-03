@@ -32,13 +32,13 @@ export const ArticleListItem = ({
 
       <div className={clsx(styles.body)}>
         <div className={clsx(styles.info)}>
-          <div className={clsx(styles.info_start)}>
+          <div className={clsx(styles.infoStart)}>
             {tag}
 
             {date}
           </div>
 
-          <div className={clsx(styles.info_end)}>
+          <div className={clsx(styles.infoEnd)}>
             <Likes likes={likes} />
           </div>
         </div>
@@ -51,7 +51,9 @@ export const ArticleListItem = ({
       <footer className={clsx(styles.footer)}>
         {timeToRead}
 
-        <a href={href}>Читать {<ArrowIcon />}</a>
+        <a className={clsx(styles.readMore)} href={href}>
+          Читать {<ArrowIcon />}
+        </a>
       </footer>
     </div>
   );

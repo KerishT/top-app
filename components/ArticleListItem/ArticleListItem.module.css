@@ -21,3 +21,8 @@
     gap: 10px;
     justify-content: space-between;
 }
+
+.readMore {
+    display: flex;
+    align-items: center;
+}
