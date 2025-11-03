@@ -2,6 +2,7 @@ import { ArticleListItemProps } from "./ArticleListItem.props";
 import Image from "next/image";
 import styles from "./ArticleListItem.module.css";
 import clsx from "clsx";
+import ArrowIcon from "./arrow.svg";
 import { Likes } from "../Likes/Likes";
 import { Htag } from "../Htag/Htag";
 
@@ -50,7 +51,7 @@ export const ArticleListItem = ({
       <footer className={clsx(styles.footer)}>
         {timeToRead}
 
-        <a href={href}>Читать</a>
+        <a href={href}>Читать {<ArrowIcon />}</a>
       </footer>
     </div>
   );
