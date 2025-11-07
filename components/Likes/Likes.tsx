@@ -14,9 +14,11 @@ export const Likes = ({
   const [isLiked, setIsLiked] = useState(initialIsLiked);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    setIsLiked(true);
+    if (!isLiked) {
+      setIsLiked(true);
 
-    onClick?.(e);
+      onClick?.(e);
+    }
   };
 
   return (
