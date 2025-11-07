@@ -1,17 +1,9 @@
-import { Button, Htag, P, Tag } from "@/components";
+"use client";
+import { Rating } from "@/components";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <>
-      <Htag>123</Htag>
-      <Button arrow="right">Button</Button>
-      <Button appearance="ghost" arrow="down">
-        Button
-      </Button>
-      <P>Test</P>
-      <Tag size="s" color="red" href="/">
-        Test
-      </Tag>
-    </>
-  );
+  const [rating, setRating] = useState(4);
+
+  return <Rating rating={rating} setRating={setRating} isEditable />;
 }
