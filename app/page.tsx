@@ -1,9 +1,14 @@
 "use client";
-import { Rating } from "@/components";
-import { useState } from "react";
+import { Likes } from "@/components";
+
+const postId = 1;
 
 export default function Home() {
-  const [rating, setRating] = useState(4);
+  const fetchPost = () => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+      method: "PATCH",
+    });
+  };
 
-  return <Rating rating={rating} setRating={setRating} isEditable />;
+  return <Likes onClick={fetchPost} />;
 }

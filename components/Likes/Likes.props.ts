@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 export interface LikesProps
   extends DetailedHTMLProps<
@@ -6,4 +6,5 @@ export interface LikesProps
     HTMLButtonElement
   > {
   likes?: number;
+  initialIsLiked?: boolean;
 }

@@ -17,3 +17,7 @@
     margin-top: 2px;
     margin-right: 2px;
 }
+
+.liked svg {
+    fill: #D3D3D3;
+}
