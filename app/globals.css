@@ -39,11 +39,10 @@ a {
 .wrapper {
   display: grid;
   grid-template:
-    ". header header ." auto ". sidebar content ." 1fr "footer footer footer footer" auto / auto 230px minmax(
-      320px,
-      1200px
-    )
-    auto;
+    ". header header ." auto
+    ". sidebar content ." 1fr
+    "footer footer footer footer" auto /
+    auto 230px minmax(320px, 1200px) auto;
   min-height: 100vh;
 }
 
