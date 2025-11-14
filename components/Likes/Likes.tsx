@@ -1,3 +1,4 @@
+"use client";
 import { LikesProps } from "./Likes.props";
 import styles from "./Likes.module.css";
 import LikeIcon from "./like.svg";
