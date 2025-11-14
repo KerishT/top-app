@@ -4,5 +4,5 @@ export * from "./P/P";
 export * from "./Tag/Tag";
 export * from "./Card/Card";
 export * from "./Likes/Likes";
-export * from "./ArticleListItem/ArticleListItem";
 export * from "./Rating/Rating";
+export * from "./Article/ArticleList/ArticleList";
