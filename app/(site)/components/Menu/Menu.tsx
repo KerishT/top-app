@@ -4,8 +4,10 @@ export const Menu = async () => {
   const menu = await getMenu(0);
 
   return (
-    <main>
-      <div>{menu.length}</div>
-    </main>
+    <ul>
+      {menu.map(item => (
+        <li key={item._id.secondCategory}>{item._id.secondCategory}</li>
+      ))}
+    </ul>
   );
 };
