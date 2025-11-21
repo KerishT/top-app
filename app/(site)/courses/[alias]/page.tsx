@@ -26,7 +26,7 @@ export default async function Course({
     notFound();
   }
 
-  const product = await getProducts(page?.category, 10);
+  const products = await getProducts(page?.category, 10);
 
-  return `${page.title} - ${product?.length}`;
+  return `${page.title} - ${products?.length}`;
 }
