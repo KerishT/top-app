@@ -1,10 +1,11 @@
 import { getMenu } from "@/api/menu";
 import { getPage } from "@/api/page";
+import { getProduct } from "@/api/product";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Продукты",
+  title: "Курс",
 };
 
 export async function generateStaticParams() {
@@ -13,7 +14,7 @@ export async function generateStaticParams() {
   return menu.flatMap(item => item.pages.map(page => ({ alias: page.alias })));
 }
 
-export default async function PageProducts({
+export default async function Course({
   params,
 }: {
   params: Promise<{ alias: string }>;
@@ -25,5 +26,7 @@ export default async function PageProducts({
     notFound();
   }
 
-  return page.title;
+  const product = await getProduct(page?.category, 10);
+
+  return `${page.title} - ${product?.length}`;
 }
