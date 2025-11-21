@@ -1,7 +1,7 @@
 import { API } from "@/app/api";
 import { ProductModel } from "@/interfaces/product.interface";
 
-export async function getProduct(
+export async function getProducts(
   category: string,
   limit: number
 ): Promise<ProductModel[] | null> {

@@ -1,6 +1,6 @@
 import { getMenu } from "@/api/menu";
 import { getPage } from "@/api/page";
-import { getProduct } from "@/api/product";
+import { getProducts } from "@/api/products";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -26,7 +26,7 @@ export default async function Course({
     notFound();
   }
 
-  const product = await getProduct(page?.category, 10);
+  const product = await getProducts(page?.category, 10);
 
   return `${page.title} - ${product?.length}`;
 }
