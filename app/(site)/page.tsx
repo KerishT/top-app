@@ -1,3 +1,7 @@
+import { getPosts } from "@/api/posts";
+
 export default async function Home() {
-  return "Главная";
+  const posts = await getPosts();
+
+  return `Главная ${posts.length}`;
 }

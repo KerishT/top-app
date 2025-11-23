@@ -9,4 +9,5 @@ export const API = {
   review: {
     createDemo: process.env.NEXT_PUBLIC_DOMAIN + "/api/review/create-demo",
   },
+  posts: process.env.NEXT_PUBLIC_API + "/posts",
 };
