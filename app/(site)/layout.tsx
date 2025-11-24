@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import { Footer } from "./components/Layout";
-import "./globals.css";
 import { Sidebar } from "./components/Layout/Sidebar/Sidebar";
+import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
   variable: "--font-family",
