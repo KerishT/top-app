@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import { Footer } from "./components/Layout";
 import { Sidebar } from "./components/Layout/Sidebar/Sidebar";
+import { Providers } from "./contexts";
 import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
@@ -25,10 +26,12 @@ export default function RootLayout({
     <html lang="ru">
       <body className={notoSansKr.className}>
         <div className="wrapper">
-          <header className="header">Header</header>
-          <Sidebar className="sidebar" />
-          <main className="content">{children}</main>
-          <Footer className="footer" />
+          <Providers>
+            <header className="header">Header</header>
+            <Sidebar className="sidebar" />
+            <main className="content">{children}</main>
+            <Footer className="footer" />
+          </Providers>
         </div>
       </body>
     </html>
