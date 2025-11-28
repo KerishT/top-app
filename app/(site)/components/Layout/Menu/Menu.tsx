@@ -6,6 +6,7 @@ import {
 } from "@/interfaces/menu.interface";
 import { TopLevelCategory } from "@/interfaces/page.interface";
 import clsx from "clsx";
+import Link from "next/link";
 import BooksIcon from "./icons/books.svg";
 import CoursesIcon from "./icons/courses.svg";
 import ProductsIcon from "./icons/products.svg";
@@ -44,7 +45,7 @@ const buildFirstLevel = (menu: MenuItem[], firstCategory: number) => {
     <>
       {firstLevelMenu.map(m => (
         <div key={m.route}>
-          <a href={`/${m.route}`}>
+          <Link href={`/${m.route}`}>
             <div
               className={clsx(styles.firstLevel, {
                 [styles.firstLevelActive]: m.id == firstCategory,
@@ -53,7 +54,7 @@ const buildFirstLevel = (menu: MenuItem[], firstCategory: number) => {
               {m.icon}
               <span>{m.name}</span>
             </div>
-          </a>
+          </Link>
           {m.id == firstCategory && buildSecondLevel(menu, m)}
         </div>
       ))}
@@ -82,7 +83,7 @@ const buildSecondLevel = (menu: MenuItem[], menuItem: FirstLevelMenuItem) => {
 
 const buildThirdLevel = (pages: PageItem[], route: string) => {
   return pages.map(p => (
-    <a
+    <Link
       key={p._id}
       href={`/${route}/${p.alias}`}
       className={clsx(styles.thirdLevel, {
@@ -90,7 +91,7 @@ const buildThirdLevel = (pages: PageItem[], route: string) => {
       })}
     >
       {p.category}
-    </a>
+    </Link>
   ));
 };
 
