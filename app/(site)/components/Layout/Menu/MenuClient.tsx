@@ -8,7 +8,7 @@ import { TopLevelCategory } from "@/interfaces/page.interface";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BooksIcon from "./icons/books.svg";
 import CoursesIcon from "./icons/courses.svg";
 import ProductsIcon from "./icons/products.svg";
@@ -43,46 +43,57 @@ const firstLevelMenu: FirstLevelMenuItem[] = [
   },
 ];
 
-const buildFirstLevel = (
-  menu: MenuItem[],
-  firstCategory: TopLevelCategory,
-  pathname: string,
-  openSecondLevel: (secondCategory: string) => void
-) => {
-  return (
-    <>
-      {firstLevelMenu.map(m => (
-        <div key={m.route}>
-          <Link href={`/${m.route}`}>
-            <div
-              className={clsx(styles.firstLevel, {
-                [styles.firstLevelActive]: m.id == firstCategory,
-              })}
-            >
-              {m.icon}
-              <span>{m.name}</span>
-            </div>
-          </Link>
-          {m.id == firstCategory &&
-            buildSecondLevel(menu, m, pathname, openSecondLevel)}
-        </div>
-      ))}
-    </>
-  );
+const routeToCategoryMap: Record<string, TopLevelCategory> = {
+  courses: TopLevelCategory.Courses,
+  services: TopLevelCategory.Services,
+  books: TopLevelCategory.Books,
+  products: TopLevelCategory.Products,
 };
 
-const buildSecondLevel = (
-  menu: MenuItem[],
-  menuItem: FirstLevelMenuItem,
-  pathname: string,
-  openSecondLevel: (secondCategory: string) => void
-) => {
-  return (
+export const MenuClient = ({ menus }: MenuClientProps) => {
+  const pathname = usePathname();
+  const type = pathname.split("/")[1];
+  const firstCategory = routeToCategoryMap[type] ?? TopLevelCategory.Courses;
+
+  const [menu, setMenu] = useState<MenuItem[]>(menus[firstCategory]);
+
+  useEffect(() => {
+    setMenu(menus[firstCategory]);
+  }, [firstCategory, menus]);
+
+  const openSecondLevel = (secondCategory: string) => {
+    setMenu(prev =>
+      prev.map(m =>
+        m._id.secondCategory === secondCategory
+          ? { ...m, isOpened: !m.isOpened }
+          : m
+      )
+    );
+  };
+
+  const buildThirdLevel = (pages: PageItem[], route: string) =>
+    pages.map(p => {
+      const link = `/${route}/${p.alias}`;
+      return (
+        <Link
+          key={p._id}
+          href={link}
+          className={clsx(styles.thirdLevel, {
+            [styles.thirdLevelActive]: link === pathname,
+          })}
+        >
+          {p.category}
+        </Link>
+      );
+    });
+
+  const buildSecondLevel = (menuItem: FirstLevelMenuItem) => (
     <div className={styles.secondBlock}>
       {menu.map(m => {
-        if (m.pages.map(p => p.alias).includes(pathname.split("/")[2])) {
-          m.isOpened = true;
-        }
+        const activePage = pathname.split("/")[2];
+        const shouldOpen = m.pages.some(p => p.alias === activePage);
+
+        if (shouldOpen) m.isOpened = true;
 
         return (
           <div key={m._id.secondCategory}>
@@ -92,56 +103,40 @@ const buildSecondLevel = (
             >
               {m._id.secondCategory}
             </div>
+
             <div
               className={clsx(styles.secondLevelBlock, {
                 [styles.secondLevelBlockOpened]: m.isOpened,
               })}
             >
-              {buildThirdLevel(m.pages, menuItem.route, pathname)}
+              {buildThirdLevel(m.pages, menuItem.route)}
             </div>
           </div>
         );
       })}
     </div>
   );
-};
 
-const buildThirdLevel = (
-  pages: PageItem[],
-  route: string,
-  pathname: string
-) => {
-  return pages.map(p => (
-    <Link
-      key={p._id}
-      href={`/${route}/${p.alias}`}
-      className={clsx(styles.thirdLevel, {
-        [styles.thirdLevelActive]: `/${route}/${p.alias}` === pathname,
-      })}
-    >
-      {p.category}
-    </Link>
-  ));
-};
+  const buildFirstLevel = () => (
+    <>
+      {firstLevelMenu.map(m => (
+        <div key={m.route}>
+          <Link href={`/${m.route}`}>
+            <div
+              className={clsx(styles.firstLevel, {
+                [styles.firstLevelActive]: m.id === firstCategory,
+              })}
+            >
+              {m.icon}
+              <span>{m.name}</span>
+            </div>
+          </Link>
 
-export const MenuClient = ({
-  menu: serverMenu,
-  firstCategory,
-}: MenuClientProps) => {
-  const [menu, setMenu] = useState<MenuItem[]>(serverMenu);
-  const pathname = usePathname();
-
-  const openSecondLevel = (secondCategory: string) => {
-    setMenu(prevMenu =>
-      prevMenu.map(m =>
-        m._id.secondCategory === secondCategory
-          ? { ...m, isOpened: !m.isOpened }
-          : m
-      )
-    );
-  };
-
-  return (
-    <nav>{buildFirstLevel(menu, firstCategory, pathname, openSecondLevel)}</nav>
+          {m.id === firstCategory && buildSecondLevel(m)}
+        </div>
+      ))}
+    </>
   );
+
+  return <nav>{buildFirstLevel()}</nav>;
 };
