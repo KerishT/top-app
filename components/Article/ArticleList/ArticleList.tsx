@@ -11,8 +11,8 @@ export const ArticleList = ({
 }: ArticleListProps) => {
   return (
     <div className={clsx(styles.articleList, className)} {...props}>
-      {articles.map((article, idx) => (
-        <Card key={idx}>
+      {articles.map((article, id) => (
+        <Card key={id}>
           <ArticleListItem {...article} />
         </Card>
       ))}

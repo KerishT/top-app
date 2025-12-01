@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Htag } from "../../Htag/Htag";
 import { Likes } from "../../Likes/Likes";
 import ArrowIcon from "./arrow.svg";
-import styles from "./ArticleListItem.module.css";
-import { ArticleListItemProps } from "./ArticleListItem.props";
+import styles from "./ArticleDetails.module.css";
+import { ArticleDetailsProps } from "./ArticleDetails.props";
 
-export const ArticleListItem = ({
+export const ArticleDetails = ({
   id,
   userId,
   image,
@@ -19,11 +19,11 @@ export const ArticleListItem = ({
   timeToRead,
   className,
   ...props
-}: ArticleListItemProps) => {
+}: ArticleDetailsProps) => {
   const hasInfo = tag && date && likes;
 
   return (
-    <div className={clsx(styles.articleListItem, className)} {...props}>
+    <div className={clsx(styles.ArticleDetails, className)} {...props}>
       {image && (
         <header>
           <Image
@@ -55,14 +55,6 @@ export const ArticleListItem = ({
 
         <span>{body}</span>
       </div>
-
-      <footer className={clsx(styles.footer)}>
-        {timeToRead ?? "5 минут"}
-
-        <Link className={clsx(styles.readMore)} href={`/posts/${id}`}>
-          Читать {<ArrowIcon />}
-        </Link>
-      </footer>
     </div>
   );
 };
