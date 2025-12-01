@@ -1,10 +1,14 @@
 import clsx from "clsx";
-import { SidebarProps } from "./Sidebar.props";
+import Logo from "../icons/logo.svg";
 import { Menu } from "../Menu/Menu";
+import styles from "./Sidebar.module.css";
+import { SidebarProps } from "./Sidebar.props";
 
 export const Sidebar = ({ className, ...props }: SidebarProps) => {
   return (
-    <aside className={clsx(className)} {...props}>
+    <aside className={clsx(className, styles.sidebar)} {...props}>
+      <Logo className={styles.logo} />
+
       <Menu />
     </aside>
   );

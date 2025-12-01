@@ -14,7 +14,7 @@ export async function generateStaticParams() {
   return menu.flatMap(item => item.pages.map(page => ({ alias: page.alias })));
 }
 
-export default async function Course({
+export default async function Type({
   params,
 }: {
   params: Promise<{ alias: string }>;

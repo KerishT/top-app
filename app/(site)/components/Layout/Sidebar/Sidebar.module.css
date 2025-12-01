@@ -1,0 +1,10 @@
+.sidebar {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  padding-bottom: 20px;
+}
+
+.logo {
+  margin-top: 34px;
+}
