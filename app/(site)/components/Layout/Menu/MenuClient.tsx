@@ -9,46 +9,9 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BooksIcon from "./icons/books.svg";
-import CoursesIcon from "./icons/courses.svg";
-import ProductsIcon from "./icons/products.svg";
-import ServicesIcon from "./icons/services.svg";
 import styles from "./Menu.module.css";
 import { MenuClientProps } from "./Menu.props";
-
-const firstLevelMenu: FirstLevelMenuItem[] = [
-  {
-    id: TopLevelCategory.Courses,
-    route: "courses",
-    name: "Курсы",
-    icon: <CoursesIcon />,
-  },
-  {
-    id: TopLevelCategory.Services,
-    route: "services",
-    name: "Сервисы",
-    icon: <ServicesIcon />,
-  },
-  {
-    id: TopLevelCategory.Books,
-    route: "books",
-    name: "Книги",
-    icon: <BooksIcon />,
-  },
-  {
-    id: TopLevelCategory.Products,
-    route: "products",
-    name: "Продукты",
-    icon: <ProductsIcon />,
-  },
-];
-
-const routeToCategoryMap: Record<string, TopLevelCategory> = {
-  courses: TopLevelCategory.Courses,
-  services: TopLevelCategory.Services,
-  books: TopLevelCategory.Books,
-  products: TopLevelCategory.Products,
-};
+import { routeToCategoryMap, firstLevelMenu } from "@/helpers";
 
 export const MenuClient = ({ menus }: MenuClientProps) => {
   const pathname = usePathname();

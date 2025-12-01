@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
-import { Footer } from "./components/Layout";
-import { Sidebar } from "./components/Layout/Sidebar/Sidebar";
+import { Footer, Sidebar } from "./components";
 import { Providers } from "./contexts";
 import "./globals.css";
 

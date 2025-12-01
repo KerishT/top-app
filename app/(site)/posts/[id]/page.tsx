@@ -1,4 +1,4 @@
-import { getPost } from "@/api/getPost";
+import { getPost } from "@/api/post";
 import { getPosts } from "@/api/posts";
 import { ArticleDetails } from "@/components/Article/ArticleDetails/ArticleDetails";
 import { Metadata } from "next";
