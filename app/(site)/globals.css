@@ -43,7 +43,7 @@ a {
     ". sidebar content ." 1fr
     "footer footer footer footer" auto /
     auto 230px minmax(320px, 1200px) auto;
-  gap: 0 30px;
+  gap: 40px 30px;
   min-height: 100vh;
 }
 
@@ -79,5 +79,9 @@ a {
 
   .header {
     display: block;
+  }
+
+  .content {
+    padding: 15px;
   }
 }

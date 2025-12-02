@@ -6,13 +6,15 @@
   align-items: center;
 }
 
-.wrapper {
-  margin-top: 40px;
-}
-
 .hhTitle {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 20px;
   place-items: baseline left;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 0;
 }

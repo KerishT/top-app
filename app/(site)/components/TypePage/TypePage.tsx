@@ -1,4 +1,4 @@
-import { HhData, Htag, Tag } from "@/components";
+import { Advantages, HhData, Htag, P, Tag } from "@/components";
 import { TopLevelCategory } from "@/interfaces/page.interface";
 import styles from "./TypePage.module.css";
 import { TypePageProps } from "./TypePage.props";
@@ -33,6 +33,24 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
       {firstCategory == TopLevelCategory.Courses && page.hh && (
         <HhData {...page.hh} />
       )}
+
+      {page.advantages && page.advantages.length > 0 && (
+        <>
+          <Htag tag="h2">Преимущства</Htag>
+          <Advantages advantages={page.advantages} />
+        </>
+      )}
+      {page.seoText && <P>{page.seoText}</P>}
+
+      <Htag tag="h2">Получаемые навыки</Htag>
+
+      <div className={styles.tags}>
+        {page.tags.map(t => (
+          <Tag key={t} color="primary">
+            {t}
+          </Tag>
+        ))}
+      </div>
     </div>
   );
 };
