@@ -38,3 +38,9 @@ export const routeToCategoryMap: Record<string, TopLevelCategory> = {
   books: TopLevelCategory.Books,
   products: TopLevelCategory.Products,
 };
+
+export const priceRu = (price: number): string =>
+  price
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+    .concat(" ₽");
