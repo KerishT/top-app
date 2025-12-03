@@ -2,6 +2,7 @@ import { Advantages, HhData, Htag, P, Tag } from "@/components";
 import { TopLevelCategory } from "@/interfaces/page.interface";
 import styles from "./TypePage.module.css";
 import { TypePageProps } from "./TypePage.props";
+import parse from "html-react-parser";
 
 export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
   return (
@@ -40,7 +41,8 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
           <Advantages advantages={page.advantages} />
         </>
       )}
-      {page.seoText && <P>{page.seoText}</P>}
+
+      {page.seoText && <div className={styles.seo}>{parse(page.seoText)}</div>}
 
       <Htag tag="h2">Получаемые навыки</Htag>
 
