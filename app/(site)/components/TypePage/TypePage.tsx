@@ -1,8 +1,8 @@
-import { Advantages, HhData, Htag, P, Tag } from "@/components";
+import { Advantages, HhData, Htag, Tag } from "@/components";
 import { TopLevelCategory } from "@/interfaces/page.interface";
+import parse from "html-react-parser";
 import styles from "./TypePage.module.css";
 import { TypePageProps } from "./TypePage.props";
-import parse from "html-react-parser";
 
 export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
   return (
