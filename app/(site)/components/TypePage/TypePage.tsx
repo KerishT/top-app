@@ -1,10 +1,25 @@
-import { Advantages, HhData, Htag, Tag } from "@/components";
+"use client";
+import { Advantages, HhData, Htag, Sort, Tag } from "@/components";
+import { SortEnum } from "@/components/Sort/Sort.props";
 import { TopLevelCategory } from "@/interfaces/page.interface";
 import parse from "html-react-parser";
 import styles from "./TypePage.module.css";
 import { TypePageProps } from "./TypePage.props";
+import { sortReducer } from "@/components/Sort/sort.reducer";
+import { useReducer } from "react";
 
 export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
+  const [{ products: sortedProducts, sort }, dispathSort] = useReducer(
+    sortReducer,
+    { products, sort: SortEnum.Rating }
+  );
+
+  console.log("sortedProducts", sortedProducts);
+
+  const setSort = (sort: SortEnum) => {
+    dispathSort({ type: sort });
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
@@ -16,11 +31,12 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
           </Tag>
         )}
 
-        <span>Сортировка</span>
+        <Sort sort={sort} setSort={setSort} />
       </div>
 
       <div>
-        {products && products.map(p => <div key={p._id}>{p.title}</div>)}
+        {sortedProducts &&
+          sortedProducts.map(p => <div key={p._id}>{p.title}</div>)}
       </div>
 
       <div className={styles.hhTitle}>

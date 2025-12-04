@@ -8,3 +8,4 @@ export * from "./Rating/Rating";
 export * from "./Article/ArticleList/ArticleList";
 export * from "./HhData/HhData";
 export * from "./Advantages/Advantages";
+export * from "./Sort/Sort";
