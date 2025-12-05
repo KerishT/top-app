@@ -1,8 +1,11 @@
 import { getMenu } from "@/api/menu";
 import { getPage } from "@/api/page";
 import { getProducts } from "@/api/products";
+import { routeToCategoryMap } from "@/helpers";
+import { TopLevelCategory } from "@/interfaces/page.interface";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { TypePage } from "../../components";
 
 export const metadata: Metadata = {
   title: "Курс",
@@ -17,16 +20,18 @@ export async function generateStaticParams() {
 export default async function Type({
   params,
 }: {
-  params: Promise<{ alias: string }>;
+  params: Promise<{ type: string; alias: string }>;
 }) {
-  const { alias } = await params;
-  const page = await getPage(alias);
+  const { type, alias } = await params;
+  const firstCategory = routeToCategoryMap[type] ?? TopLevelCategory.Courses;
 
-  if (!page) {
-    notFound();
-  }
+  const page = await getPage(alias);
+  if (!page) notFound();
 
   const products = await getProducts(page?.category, 10);
+  if (!products) notFound();
 
-  return `${page.title} - ${products?.length}`;
+  return (
+    <TypePage page={page} products={products} firstCategory={firstCategory} />
+  );
 }

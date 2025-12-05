@@ -1,0 +1,17 @@
+.articleListItem {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
