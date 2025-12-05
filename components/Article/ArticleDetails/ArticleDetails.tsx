@@ -1,22 +1,21 @@
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 import { Htag } from "../../Htag/Htag";
 import { Likes } from "../../Likes/Likes";
-import ArrowIcon from "./arrow.svg";
 import styles from "./ArticleDetails.module.css";
+import parse from "html-react-parser";
 import { ArticleDetailsProps } from "./ArticleDetails.props";
 
 export const ArticleDetails = ({
   id,
   userId,
-  image,
-  tag,
-  date,
+  image = "/image-placehold.svg",
+  tag = "Front-end",
+  date = "1 месяц назад",
   title,
-  likes,
+  likes = 4,
   body,
-  timeToRead,
+  timeToRead = "3 минуты",
   className,
   ...props
 }: ArticleDetailsProps) => {
@@ -24,37 +23,29 @@ export const ArticleDetails = ({
 
   return (
     <div className={clsx(styles.ArticleDetails, className)} {...props}>
-      {image && (
-        <header>
-          <Image
-            className={styles.logo}
-            width={330}
-            height={220}
-            src={image}
-            alt="Article image"
-          />
-        </header>
+      <Htag className={styles.title} tag="h1">
+        {title}
+      </Htag>
+
+      {hasInfo && (
+        <div className={clsx(styles.info)}>
+          <span>{tag}</span>
+
+          <span>{date}</span>
+
+          <span>{timeToRead}</span>
+
+          <Likes likes={likes} />
+        </div>
       )}
 
-      <div className={clsx(styles.body)}>
-        {hasInfo && (
-          <div className={clsx(styles.info)}>
-            <div className={clsx(styles.infoStart)}>
-              {tag}
+      {image && (
+        <div className={styles.image}>
+          <Image width={600} height={400} src={image} alt="Article image" />
+        </div>
+      )}
 
-              {date}
-            </div>
-
-            <div className={clsx(styles.infoEnd)}>
-              <Likes likes={likes} />
-            </div>
-          </div>
-        )}
-
-        <Htag tag="h3">{title}</Htag>
-
-        <span>{body}</span>
-      </div>
+      <div className={clsx(styles.content)}>{parse(body)}</div>
     </div>
   );
 };
