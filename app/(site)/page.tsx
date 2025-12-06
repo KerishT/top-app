@@ -1,5 +1,10 @@
-import { Input } from "@/components";
+import { Input, Textarea } from "@/components";
 
 export default async function Home() {
-  return <Input placeholder="Test" />;
+  return (
+    <>
+      <Input placeholder="Test" />
+      <Textarea placeholder={"213"} />
+    </>
+  );
 }
