@@ -1,3 +1,5 @@
+import { Input } from "@/components";
+
 export default async function Home() {
-  return "Главная";
+  return <Input placeholder="Test" />;
 }
