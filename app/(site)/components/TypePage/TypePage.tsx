@@ -7,14 +7,13 @@ import styles from "./TypePage.module.css";
 import { TypePageProps } from "./TypePage.props";
 import { sortReducer } from "@/components/Sort/sort.reducer";
 import { useReducer } from "react";
+import { Product } from "../Product/Product";
 
 export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
   const [{ products: sortedProducts, sort }, dispathSort] = useReducer(
     sortReducer,
     { products, sort: SortEnum.Rating }
   );
-
-  console.log("sortedProducts", sortedProducts);
 
   const setSort = (sort: SortEnum) => {
     dispathSort({ type: sort });
@@ -36,7 +35,7 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
 
       <div>
         {sortedProducts &&
-          sortedProducts.map(p => <div key={p._id}>{p.title}</div>)}
+          sortedProducts.map(p => <Product key={p._id} product={p} />)}
       </div>
 
       <div className={styles.hhTitle}>
