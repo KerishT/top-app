@@ -44,3 +44,15 @@ export const priceRu = (price: number): string =>
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     .concat(" ₽");
+
+const declOfNumMask = [2, 0, 1, 1, 1, 2];
+export const declOfNum = (
+  number: number,
+  titles: [string, string, string]
+): string => {
+  return titles[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : declOfNumMask[number % 10 < 5 ? number % 10 : 5]
+  ];
+};
