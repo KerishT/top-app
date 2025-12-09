@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "old-images.hb.ru-msk.vkcs.cloud",
+        pathname: "/uploads/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
