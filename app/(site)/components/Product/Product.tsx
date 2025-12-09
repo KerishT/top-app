@@ -81,7 +81,7 @@ export const Product = ({ product, className, ...props }: ProductProps) => {
         )}
       </div>
 
-      <Divider className={styles.hr} />
+      <Divider className={clsx(styles.hr, styles.hr2)} />
 
       <div className={styles.actions}>
         <Button appearance="primary">Узнать подробнее</Button>
