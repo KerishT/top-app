@@ -1,14 +1,15 @@
-import { ProductProps } from "./Product.props";
-import styles from "./Product.module.css";
-import { Card, Tag, Rating, Button, Divider } from "@/components";
+import { Button, Card, Divider, Rating, Tag } from "@/components";
 import { declOfNum, priceRu } from "@/helpers";
 import clsx from "clsx";
+import Image from "next/image";
+import styles from "./Product.module.css";
+import { ProductProps } from "./Product.props";
 
 export const Product = ({ product, className, ...props }: ProductProps) => {
   return (
     <Card className={clsx(styles.product, className)}>
       <div className={styles.logo}>
-        <img src={product.image} alt={product.title} />
+        <Image src={product.image} alt={product.title} width={70} height={70} />
       </div>
 
       <div className={styles.title}>{product.title}</div>
