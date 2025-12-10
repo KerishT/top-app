@@ -1,0 +1,17 @@
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.commentsItemHeader {
+  margin-bottom: 10px;
+}
+
+.commentsItemName {
+  margin-right: 10px;
+  font-weight: bold;
+}

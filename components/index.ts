@@ -6,6 +6,7 @@ export * from "./Card/Card";
 export * from "./Likes/Likes";
 export * from "./Rating/Rating";
 export * from "./Article/ArticleList/ArticleList";
+export * from "./Article/ArticleDetails/ArticleDetails";
 export * from "./HhData/HhData";
 export * from "./Advantages/Advantages";
 export * from "./Sort/Sort";
