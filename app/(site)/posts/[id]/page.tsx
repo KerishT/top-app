@@ -1,8 +1,10 @@
+import { getComments } from "@/api/comments";
 import { getPost } from "@/api/post";
 import { getPosts } from "@/api/posts";
-import { ArticleDetails } from "@/components/Article/ArticleDetails/ArticleDetails";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Comments } from "../../components";
+import { ArticleDetails } from "@/components";
 
 export const metadata: Metadata = {
   title: "Пост",
@@ -23,10 +25,16 @@ export default async function Post({
 }) {
   const { id } = await params;
   const post = await getPost(+id);
+  const comments = await getComments(+id);
 
   if (!post) {
     notFound();
   }
 
-  return <ArticleDetails {...post} />;
+  return (
+    <>
+      <ArticleDetails {...post} />
+      <Comments comments={comments} />
+    </>
+  );
 }
