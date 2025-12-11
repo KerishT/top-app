@@ -14,3 +14,4 @@ export * from "./Input/Input";
 export * from "./Textarea/Textarea";
 export * from "./Search/Search";
 export * from "./Divider/Divider";
+export * from "./Review/Review";
