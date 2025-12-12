@@ -1,27 +1,54 @@
+"use client";
 import { ReviewFormProps } from "./ReviewForm.props";
 import styles from "./ReviewForm.module.css";
 import CloseIcon from "./close.svg";
 import clsx from "clsx";
 import { Input, Rating, Textarea, Button } from "@/components";
+import { Controller, useForm } from "react-hook-form";
+import { IReviewForm } from "./ReviewForm.interface";
 
 export const ReviewForm = ({
   productId,
   className,
   ...props
 }: ReviewFormProps) => {
-  return (
-    <>
-      <div className={clsx(styles.reviewForm, className)} {...props}>
-        <Input placeholder="Имя" />
+  const { register, control, handleSubmit } = useForm<IReviewForm>();
 
-        <Input placeholder="Заголовок отзыва" className={styles.title} />
+  const onSubmit = (data: IReviewForm) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className={clsx(styles.reviewForm, className)} {...props}>
+        <Input {...register("name")} placeholder="Имя" />
+
+        <Input
+          {...register("title")}
+          placeholder="Заголовок отзыва"
+          className={styles.title}
+        />
 
         <div className={styles.rating}>
           <span>Оценка:</span>
-          <Rating rating={0} />
+          <Controller
+            control={control}
+            name="rating"
+            render={({ field }) => (
+              <Rating
+                isEditable
+                rating={field.value}
+                setRating={field.onChange}
+              />
+            )}
+          />
         </div>
 
-        <Textarea placeholder="Текст отзыва" className={styles.description} />
+        <Textarea
+          {...register("description")}
+          placeholder="Текст отзыва"
+          className={styles.description}
+        />
 
         <div className={styles.submit}>
           <Button appearance="primary">Отправить</Button>
@@ -39,6 +66,6 @@ export const ReviewForm = ({
 
         <CloseIcon className={styles.close} />
       </div>
-    </>
+    </form>
   );
 };
