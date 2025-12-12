@@ -4,6 +4,7 @@ import { declOfNum, priceRu } from "@/helpers";
 import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
+import { ReviewForm } from "../ReviewForm/ReviewForm";
 import styles from "./Product.module.css";
 import { ProductProps } from "./Product.props";
 
@@ -117,8 +118,13 @@ export const Product = ({ product, className, ...props }: ProductProps) => {
         })}
       >
         {product.reviews.map(r => (
-          <Review key={r._id} review={r} />
+          <>
+            <Review key={r._id} review={r} />
+            <Divider />
+          </>
         ))}
+
+        <ReviewForm productId={product._id} />
       </Card>
     </>
   );
