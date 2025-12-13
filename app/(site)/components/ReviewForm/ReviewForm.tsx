@@ -37,6 +37,7 @@ export const ReviewForm = ({
             render={({ field }) => (
               <Rating
                 isEditable
+                ref={field.ref}
                 rating={field.value}
                 setRating={field.onChange}
               />
