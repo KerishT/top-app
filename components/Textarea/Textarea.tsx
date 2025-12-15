@@ -2,12 +2,22 @@ import { TextareaProps } from "./Textarea.props";
 import styles from "./Textarea.module.css";
 import clsx from "clsx";
 
-export const Textarea = ({ className, ref, ...props }: TextareaProps) => {
+export const Textarea = ({
+  className,
+  error,
+  ref,
+  ...props
+}: TextareaProps) => {
   return (
-    <textarea
-      className={clsx(className, styles.textarea)}
-      ref={ref}
-      {...props}
-    />
+    <div className={clsx(styles.textareaWrapper, className)}>
+      <textarea
+        className={clsx(styles.textarea, {
+          [styles.error]: error,
+        })}
+        ref={ref}
+        {...props}
+      />
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
+    </div>
   );
 };
