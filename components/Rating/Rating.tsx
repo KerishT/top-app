@@ -9,6 +9,7 @@ export const Rating = ({
   rating,
   setRating,
   ref,
+  error,
   isEditable = false,
   ...props
 }: RatingProps) => {
@@ -66,8 +67,16 @@ export const Rating = ({
   }, [rating]);
 
   return (
-    <div {...props} ref={ref}>
+    <div
+      {...props}
+      ref={ref}
+      className={clsx(styles.ratingWrapper, {
+        [styles.error]: error,
+      })}
+    >
       {ratingArray}
+
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
     </div>
   );
 };
