@@ -8,6 +8,8 @@ import StarIcon from "./star.svg";
 export const Rating = ({
   rating,
   setRating,
+  ref,
+  error,
   isEditable = false,
   ...props
 }: RatingProps) => {
@@ -64,5 +66,17 @@ export const Rating = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rating]);
 
-  return <div {...props}>{ratingArray}</div>;
+  return (
+    <div
+      {...props}
+      ref={ref}
+      className={clsx(styles.ratingWrapper, {
+        [styles.error]: error,
+      })}
+    >
+      {ratingArray}
+
+      {error && <span className={styles.errorMessage}>{error.message}</span>}
+    </div>
+  );
 };

@@ -6,10 +6,15 @@ export const Card = ({
   color = "white",
   children,
   className,
+  ref,
   ...props
 }: CardProps) => {
   return (
-    <div className={clsx(styles.card, className, styles[color])} {...props}>
+    <div
+      className={clsx(styles.card, className, styles[color])}
+      ref={ref}
+      {...props}
+    >
       {children}
     </div>
   );

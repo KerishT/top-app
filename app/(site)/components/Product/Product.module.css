@@ -4,7 +4,7 @@
     [start] 70px [logoend] 30px [titlestart] calc(50% - 100px)
     [middle] 1fr [pricestart] auto [priceend] 40px [creditstart] auto [creditend] 40px [ratestart] auto [end];
   padding: 30px;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .logo {
@@ -136,6 +136,22 @@
 .characteristicsDots {
   margin-bottom: 5px;
   border-bottom: 1px dashed var(--gray-light);
+}
+
+.closed {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.opened {
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
+  max-height: auto;
+  padding: 30px;
+}
+
+.rateTitle a {
+  color: var(--primary);
 }
 
 @media screen and (width <= 1320px) {
