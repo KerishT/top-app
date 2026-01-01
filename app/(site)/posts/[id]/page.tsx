@@ -3,8 +3,9 @@ import { getPost } from "@/api/post";
 import { getPosts } from "@/api/posts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Comments } from "../../components";
+import { CommentForm, Comments } from "../../components";
 import { ArticleDetails } from "@/components";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Пост",
@@ -34,7 +35,10 @@ export default async function Post({
   return (
     <>
       <ArticleDetails {...post} />
+
       <Comments comments={comments} />
+
+      <CommentForm postId={id} className={styles.commentForm} />
     </>
   );
 }
