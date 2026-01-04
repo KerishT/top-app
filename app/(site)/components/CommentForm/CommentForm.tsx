@@ -1,5 +1,4 @@
 "use client";
-import styles from "./CommentForm.module.css";
 import CloseIcon from "./close.svg";
 import clsx from "clsx";
 import { Input, Textarea, Button } from "@/components";
@@ -44,7 +43,7 @@ export const CommentForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={clsx(styles.commentForm, className)} {...props}>
+      <div className={clsx(className)} {...props}>
         <Input
           {...register("name", {
             required: { value: true, message: "Заполните имя" },
@@ -58,33 +57,26 @@ export const CommentForm = ({
             required: { value: true, message: "Заполните описание" },
           })}
           placeholder="Текст отзыва"
-          className={styles.description}
           error={errors.description}
         />
 
-        <div className={styles.submit}>
+        <div>
           <Button appearance="primary">Отправить</Button>
         </div>
       </div>
 
       {isSuccess && (
-        <div className={clsx(styles.success, styles.panel)}>
-          <div className={styles.successTitle}>Ваш отзыв отправлен</div>
+        <div>
+          <div>Ваш отзыв отправлен</div>
           <div>Спасибо, ваш отзыв будет опубликован после проверки.</div>
-          <CloseIcon
-            className={styles.close}
-            onClick={() => setIsSuccess(false)}
-          />
+          <CloseIcon onClick={() => setIsSuccess(false)} />
         </div>
       )}
 
       {error && (
-        <div className={clsx(styles.error, styles.panel)}>
+        <div>
           Что-то пошло не так, попробуйте обновить страницу
-          <CloseIcon
-            className={styles.close}
-            onClick={() => setError(undefined)}
-          />
+          <CloseIcon onClick={() => setError(undefined)} />
         </div>
       )}
     </form>

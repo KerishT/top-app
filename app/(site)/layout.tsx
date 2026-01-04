@@ -3,6 +3,7 @@ import { Noto_Sans_KR } from "next/font/google";
 import { Footer, Sidebar } from "./components";
 import { Providers } from "./contexts";
 import "./globals.css";
+import { Up } from "@/components";
 
 const notoSansKr = Noto_Sans_KR({
   variable: "--font-family",
@@ -30,6 +31,8 @@ export default function RootLayout({
             <Sidebar className="sidebar" />
             <main className="content">{children}</main>
             <Footer className="footer" />
+
+            <Up />
           </Providers>
         </div>
       </body>
