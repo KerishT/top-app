@@ -9,6 +9,11 @@ import { ReviewForm } from "../ReviewForm/ReviewForm";
 import styles from "./Product.module.css";
 import { ProductProps } from "./Product.props";
 
+const variants = {
+  visible: { opacity: 1, height: "auto" },
+  hidden: { opacity: 0, height: 0 },
+};
+
 export const Product = motion(
   ({ product, className, ref, ...props }: ProductProps) => {
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false);
@@ -124,23 +129,22 @@ export const Product = motion(
           </div>
         </Card>
 
-        <Card
-          color="blue"
-          className={clsx(styles.reviews, {
-            [styles.opened]: isReviewOpened,
-            [styles.closed]: !isReviewOpened,
-          })}
-          ref={reviewRef}
+        <motion.div
+          animate={isReviewOpened ? "visible" : "hidden"}
+          variants={variants}
+          initial="hidden"
         >
-          {product.reviews.map(r => (
-            <div key={r._id}>
-              <Review review={r} />
-              <Divider />
-            </div>
-          ))}
+          <Card color="blue" className={styles.reviews} ref={reviewRef}>
+            {product.reviews.map(r => (
+              <div key={r._id}>
+                <Review review={r} />
+                <Divider />
+              </div>
+            ))}
 
-          <ReviewForm productId={product._id} />
-        </Card>
+            <ReviewForm productId={product._id} />
+          </Card>
+        </motion.div>
       </div>
     );
   }
