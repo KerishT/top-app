@@ -48,7 +48,6 @@ a {
 }
 
 .header {
-  display: none;
   grid-area: header;
 }
 
@@ -71,14 +70,11 @@ a {
       "content"
       "footer";
     grid-template-columns: minmax(320px, 1fr);
+    gap: 10px;
   }
 
   .sidebar {
     display: none;
-  }
-
-  .header {
-    display: block;
   }
 
   .content {
