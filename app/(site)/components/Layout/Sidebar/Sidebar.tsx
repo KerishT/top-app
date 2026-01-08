@@ -5,14 +5,18 @@ import styles from "./Sidebar.module.css";
 import { SidebarProps } from "./Sidebar.props";
 import { Search } from "@/components";
 
-export const Sidebar = ({ className, ...props }: SidebarProps) => {
+export const Sidebar = ({
+  className,
+  showMenu = true,
+  ...props
+}: SidebarProps) => {
   return (
     <aside className={clsx(className, styles.sidebar)} {...props}>
       <Logo className={styles.logo} />
 
       <Search />
 
-      <Menu />
+      {showMenu && <Menu />}
     </aside>
   );
 };

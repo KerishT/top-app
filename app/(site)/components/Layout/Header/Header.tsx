@@ -47,7 +47,7 @@ export const Header = ({ className, ...props }: HeaderProps) => {
         initial={"closed"}
         animate={isOpened ? "opened" : "closed"}
       >
-        {/* <Sidebar /> */}
+        <Sidebar showMenu={false} />
 
         <ButtonIcon
           className={styles.menuClose}
