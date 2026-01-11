@@ -1,4 +1,5 @@
 "use client";
+import { firstLevelMenu, routeToCategoryMap } from "@/helpers";
 import {
   FirstLevelMenuItem,
   MenuItem,
@@ -6,12 +7,12 @@ import {
 } from "@/interfaces/menu.interface";
 import { TopLevelCategory } from "@/interfaces/page.interface";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import { MenuClientProps } from "./Menu.props";
-import { routeToCategoryMap, firstLevelMenu } from "@/helpers";
 
 export const MenuClient = ({ menus }: MenuClientProps) => {
   const pathname = usePathname();
@@ -19,6 +20,25 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
   const firstCategory = routeToCategoryMap[type] ?? TopLevelCategory.Courses;
 
   const [menu, setMenu] = useState<MenuItem[]>(menus[firstCategory]);
+
+  const variants = {
+    visible: {
+      marginBottom: 20,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+    hidden: { marginBottom: 0 },
+  };
+
+  const variantsChildren = {
+    visible: {
+      opacity: 1,
+      height: 29,
+    },
+    hidden: { opacity: 0, height: 0 },
+  };
 
   useEffect(() => {
     setMenu(menus[firstCategory]);
@@ -37,16 +57,19 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
   const buildThirdLevel = (pages: PageItem[], route: string) =>
     pages.map(p => {
       const link = `/${route}/${p.alias}`;
+
       return (
-        <Link
-          key={p._id}
-          href={link}
-          className={clsx(styles.thirdLevel, {
-            [styles.thirdLevelActive]: link === pathname,
-          })}
-        >
-          {p.category}
-        </Link>
+        <motion.div key={p._id} variants={variantsChildren}>
+          <Link
+            key={p._id}
+            href={link}
+            className={clsx(styles.thirdLevel, {
+              [styles.thirdLevelActive]: link === pathname,
+            })}
+          >
+            {p.category}
+          </Link>
+        </motion.div>
       );
     });
 
@@ -67,13 +90,15 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
               {m._id.secondCategory}
             </div>
 
-            <div
-              className={clsx(styles.secondLevelBlock, {
-                [styles.secondLevelBlockOpened]: m.isOpened,
-              })}
+            <motion.div
+              layout
+              variants={variants}
+              initial={m.isOpened ? "visible" : "hidden"}
+              animate={m.isOpened ? "visible" : "hidden"}
+              className={clsx(styles.secondLevelBlock)}
             >
               {buildThirdLevel(m.pages, menuItem.route)}
-            </div>
+            </motion.div>
           </div>
         );
       })}
