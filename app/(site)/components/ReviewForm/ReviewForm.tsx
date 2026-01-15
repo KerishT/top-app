@@ -12,6 +12,7 @@ import { sentReview } from "@/api/review";
 export const ReviewForm = ({
   productId,
   className,
+  isOpened,
   ...props
 }: ReviewFormProps) => {
   const {
@@ -52,6 +53,7 @@ export const ReviewForm = ({
           })}
           placeholder="Имя"
           error={errors.name}
+          tabIndex={isOpened ? 0 : -1}
         />
 
         <Input
@@ -61,6 +63,7 @@ export const ReviewForm = ({
           placeholder="Заголовок отзыва"
           className={styles.title}
           error={errors.title}
+          tabIndex={isOpened ? 0 : -1}
         />
 
         <div className={styles.rating}>
@@ -76,6 +79,7 @@ export const ReviewForm = ({
                 rating={field.value}
                 setRating={field.onChange}
                 error={errors.rating}
+                tabIndex={isOpened ? 0 : -1}
               />
             )}
           />
@@ -91,7 +95,9 @@ export const ReviewForm = ({
         />
 
         <div className={styles.submit}>
-          <Button appearance="primary">Отправить</Button>
+          <Button appearance="primary" tabIndex={isOpened ? 0 : -1}>
+            Отправить
+          </Button>
 
           <span className={styles.info}>
             * Перед публикацией отзыв пройдет предварительную модерацию и
