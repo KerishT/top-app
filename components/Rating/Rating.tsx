@@ -1,6 +1,13 @@
 "use client";
 import clsx from "clsx";
-import { Fragment, JSX, KeyboardEvent, useEffect, useState } from "react";
+import {
+  Fragment,
+  JSX,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styles from "./Rating.module.css";
 import { RatingProps } from "./Rating.props";
 import StarIcon from "./star.svg";
@@ -11,11 +18,13 @@ export const Rating = ({
   ref,
   error,
   isEditable = false,
+  tabIndex,
   ...props
 }: RatingProps) => {
   const [ratingArray, setRatingArray] = useState<JSX.Element[]>(
     Array.from({ length: 5 }, (_, i) => <Fragment key={i}></Fragment>)
   );
+  const ratingArrayRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   const changeDisplay = (i: number) => {
     if (!isEditable) return;
@@ -29,10 +38,24 @@ export const Rating = ({
     setRating(i);
   };
 
-  const handleSpace = (i: number, e: KeyboardEvent<SVGElement>) => {
-    if ((!isEditable && e.code !== "Space") || !setRating) return;
-
-    setRating(i);
+  const handleKey = (e: KeyboardEvent) => {
+    if (!isEditable || !setRating) {
+      return;
+    }
+    if (e.code == "ArrowRight" || e.code == "ArrowUp") {
+      if (!rating) {
+        setRating(1);
+      } else {
+        e.preventDefault();
+        setRating(rating < 5 ? rating + 1 : 5);
+      }
+      ratingArrayRef.current[rating]?.focus();
+    }
+    if (e.code == "ArrowLeft" || e.code == "ArrowDown") {
+      e.preventDefault();
+      setRating(rating > 1 ? rating - 1 : 1);
+      ratingArrayRef.current[rating - 2]?.focus();
+    }
   };
 
   const constructRating = (currentRating: number) => {
@@ -50,10 +73,6 @@ export const Rating = ({
           onMouseEnter={() => changeDisplay(starNumber)}
           onMouseLeave={() => changeDisplay(rating)}
           onClick={() => onClick(starNumber)}
-          tabIndex={isEditable ? 0 : -1}
-          onKeyDown={(e: KeyboardEvent<SVGElement>) =>
-            handleSpace(starNumber, e)
-          }
         />
       );
     });
@@ -64,7 +83,7 @@ export const Rating = ({
   useEffect(() => {
     constructRating(rating);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rating]);
+  }, [rating, tabIndex]);
 
   return (
     <div
@@ -73,6 +92,8 @@ export const Rating = ({
       className={clsx(styles.ratingWrapper, {
         [styles.error]: error,
       })}
+      onKeyDown={handleKey}
+      tabIndex={tabIndex}
     >
       {ratingArray}
 

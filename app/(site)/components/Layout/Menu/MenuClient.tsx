@@ -10,9 +10,28 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, KeyboardEvent } from "react";
 import styles from "./Menu.module.css";
 import { MenuClientProps } from "./Menu.props";
+
+const variants = {
+  visible: {
+    marginBottom: 20,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.1,
+    },
+  },
+  hidden: { marginBottom: 0 },
+};
+
+const variantsChildren = {
+  visible: {
+    opacity: 1,
+    height: 29,
+  },
+  hidden: { opacity: 0, height: 0 },
+};
 
 export const MenuClient = ({ menus }: MenuClientProps) => {
   const pathname = usePathname();
@@ -21,28 +40,16 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
 
   const [menu, setMenu] = useState<MenuItem[]>(menus[firstCategory]);
 
-  const variants = {
-    visible: {
-      marginBottom: 20,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-      },
-    },
-    hidden: { marginBottom: 0 },
-  };
-
-  const variantsChildren = {
-    visible: {
-      opacity: 1,
-      height: 29,
-    },
-    hidden: { opacity: 0, height: 0 },
-  };
-
   useEffect(() => {
     setMenu(menus[firstCategory]);
   }, [firstCategory, menus]);
+
+  const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
+    if (key.code == "Space" || key.code == "Enter") {
+      key.preventDefault();
+      openSecondLevel(secondCategory);
+    }
+  };
 
   const openSecondLevel = (secondCategory: string) => {
     setMenu(prev =>
@@ -54,13 +61,18 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
     );
   };
 
-  const buildThirdLevel = (pages: PageItem[], route: string) =>
+  const buildThirdLevel = (
+    pages: PageItem[],
+    route: string,
+    isOpened: boolean
+  ) =>
     pages.map(p => {
       const link = `/${route}/${p.alias}`;
 
       return (
         <motion.div key={p._id} variants={variantsChildren}>
           <Link
+            tabIndex={isOpened ? 0 : -1}
             key={p._id}
             href={link}
             className={clsx(styles.thirdLevel, {
@@ -84,6 +96,10 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
         return (
           <div key={m._id.secondCategory}>
             <div
+              tabIndex={0}
+              onKeyDown={(key: KeyboardEvent) =>
+                openSecondLevelKey(key, m._id.secondCategory)
+              }
               className={styles.secondLevel}
               onClick={() => openSecondLevel(m._id.secondCategory)}
             >
@@ -97,7 +113,7 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
               animate={m.isOpened ? "visible" : "hidden"}
               className={clsx(styles.secondLevelBlock)}
             >
-              {buildThirdLevel(m.pages, menuItem.route)}
+              {buildThirdLevel(m.pages, menuItem.route, m.isOpened ?? false)}
             </motion.div>
           </div>
         );
