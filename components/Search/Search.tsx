@@ -35,6 +35,7 @@ export const Search = ({ className, ...props }: SearchProps) => {
         appearance="primary"
         className={styles.button}
         onClick={goToSearch}
+        aria-label="Поиск по сайту"
       >
         <GlassIcon />
       </Button>

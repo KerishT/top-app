@@ -25,7 +25,11 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
         <Htag tag="h1">{page.title}</Htag>
 
         {products && (
-          <Tag color="grey" size="m">
+          <Tag
+            color="grey"
+            size="m"
+            aria-label={`${products.length} элементов`}
+          >
             {products.length}
           </Tag>
         )}
