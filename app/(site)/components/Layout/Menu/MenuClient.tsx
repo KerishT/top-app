@@ -142,5 +142,5 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
     </>
   );
 
-  return <nav>{buildFirstLevel()}</nav>;
+  return <nav role="navigation">{buildFirstLevel()}</nav>;
 };
