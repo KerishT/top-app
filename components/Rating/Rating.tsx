@@ -94,6 +94,12 @@ export const Rating = ({
       })}
       onKeyDown={handleKey}
       tabIndex={tabIndex}
+      role={isEditable ? "slider" : ""}
+      aria-valuenow={rating}
+      aria-valuemax={5}
+      aria-valuemin={1}
+      aria-label={isEditable ? "Укажите рейтинг" : `рейтинг ${rating}`}
+      aria-invalid={error ? true : false}
     >
       {ratingArray}
 

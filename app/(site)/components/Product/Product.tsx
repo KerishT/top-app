@@ -142,6 +142,7 @@ export const Product = motion(
               onClick={() =>
                 setIsReviewOpened(prevIsReviewOpened => !prevIsReviewOpened)
               }
+              aria-expanded={isReviewOpened}
             >
               Читать отзывы
             </Button>
