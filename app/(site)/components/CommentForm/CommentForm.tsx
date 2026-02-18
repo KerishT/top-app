@@ -66,7 +66,7 @@ export const CommentForm = ({
       </div>
 
       {isSuccess && (
-        <div>
+        <div role="alert">
           <div>Ваш отзыв отправлен</div>
           <div>Спасибо, ваш отзыв будет опубликован после проверки.</div>
           <CloseIcon onClick={() => setIsSuccess(false)} />
@@ -74,7 +74,7 @@ export const CommentForm = ({
       )}
 
       {error && (
-        <div>
+        <div role="alert">
           Что-то пошло не так, попробуйте обновить страницу
           <CloseIcon onClick={() => setError(undefined)} />
         </div>
