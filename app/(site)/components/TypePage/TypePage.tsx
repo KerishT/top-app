@@ -37,9 +37,11 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
         <Sort sort={sort} setSort={setSort} />
       </div>
 
-      <div>
+      <div role="list">
         {sortedProducts &&
-          sortedProducts.map(p => <Product layout key={p._id} product={p} />)}
+          sortedProducts.map(p => (
+            <Product layout key={p._id} product={p} role="listitem" />
+          ))}
       </div>
 
       <div className={styles.hhTitle}>
