@@ -7,31 +7,12 @@ import {
 } from "@/interfaces/menu.interface";
 import { TopLevelCategory } from "@/interfaces/page.interface";
 import clsx from "clsx";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, KeyboardEvent } from "react";
 import styles from "./Menu.module.css";
 import { MenuClientProps } from "./Menu.props";
-
-const variants = {
-  visible: {
-    marginBottom: 20,
-    transition: {
-      when: "beforeChildren",
-      staggerChildren: 0.1,
-    },
-  },
-  hidden: { marginBottom: 0 },
-};
-
-const variantsChildren = {
-  visible: {
-    opacity: 1,
-    height: 29,
-  },
-  hidden: { opacity: 0, height: 0 },
-};
 
 export const MenuClient = ({ menus }: MenuClientProps) => {
   const pathname = usePathname();
@@ -40,6 +21,28 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
 
   const [menu, setMenu] = useState<MenuItem[]>(menus[firstCategory]);
   const [announce, setAnnounce] = useState<"closed" | "opened" | undefined>();
+  const shouldReduceMotions = useReducedMotion();
+
+  const variants = {
+    visible: {
+      marginBottom: 20,
+      transition: shouldReduceMotions
+        ? {}
+        : {
+            when: "beforeChildren",
+            staggerChildren: 0.1,
+          },
+    },
+    hidden: { marginBottom: 0 },
+  };
+
+  const variantsChildren = {
+    visible: {
+      opacity: 1,
+      height: 29,
+    },
+    hidden: { opacity: shouldReduceMotions ? 1 : 0, height: 0 },
+  };
 
   useEffect(() => {
     setMenu(menus[firstCategory]);
@@ -112,7 +115,7 @@ export const MenuClient = ({ menus }: MenuClientProps) => {
             </button>
 
             <motion.ul
-              layout
+              layout={shouldReduceMotions ? false : true}
               variants={variants}
               initial={m.isOpened ? "visible" : "hidden"}
               animate={m.isOpened ? "visible" : "hidden"}
