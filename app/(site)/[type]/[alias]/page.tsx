@@ -9,13 +9,19 @@ import { TypePage } from "../../components";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ type: string; alias: string }>;
+  params: Promise<{ alias: string }>;
 }) {
   const { alias } = await params;
   const page = await getPage(alias);
 
   return {
     title: page?.metaTitle,
+    description: page?.metaDescription,
+    openGraph: {
+      title: page?.metaTitle,
+      description: page?.metaDescription,
+      type: "article",
+    },
   };
 }
 
