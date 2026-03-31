@@ -28,9 +28,12 @@ export default function RootLayout({
         <div className="wrapper">
           <Providers>
             <Header className="header" />
+
             <Sidebar className="sidebar" />
 
-            <main className="content">{children}</main>
+            <main className="content" role="main">
+              {children}
+            </main>
 
             <Footer className="footer" />
 

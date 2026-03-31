@@ -3,13 +3,27 @@ import { getPage } from "@/api/page";
 import { getProducts } from "@/api/products";
 import { routeToCategoryMap } from "@/helpers";
 import { TopLevelCategory } from "@/interfaces/page.interface";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TypePage } from "../../components";
 
-export const metadata: Metadata = {
-  title: "Курс",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ alias: string }>;
+}) {
+  const { alias } = await params;
+  const page = await getPage(alias);
+
+  return {
+    title: page?.metaTitle,
+    description: page?.metaDescription,
+    openGraph: {
+      title: page?.metaTitle,
+      description: page?.metaDescription,
+      type: "article",
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const menu = await getMenu(0);

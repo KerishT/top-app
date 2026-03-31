@@ -8,12 +8,14 @@ import { TypePageProps } from "./TypePage.props";
 import { sortReducer } from "@/components/Sort/sort.reducer";
 import { useReducer } from "react";
 import { Product } from "../Product/Product";
+import { useReducedMotion } from "framer-motion";
 
 export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
   const [{ products: sortedProducts, sort }, dispathSort] = useReducer(
     sortReducer,
     { products, sort: SortEnum.Rating }
   );
+  const shouldReduceMotions = useReducedMotion();
 
   const setSort = (sort: SortEnum) => {
     dispathSort({ type: sort });
@@ -25,7 +27,11 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
         <Htag tag="h1">{page.title}</Htag>
 
         {products && (
-          <Tag color="grey" size="m">
+          <Tag
+            color="grey"
+            size="m"
+            aria-label={`${products.length} элементов`}
+          >
             {products.length}
           </Tag>
         )}
@@ -33,9 +39,16 @@ export const TypePage = ({ page, products, firstCategory }: TypePageProps) => {
         <Sort sort={sort} setSort={setSort} />
       </div>
 
-      <div>
+      <div role="list">
         {sortedProducts &&
-          sortedProducts.map(p => <Product layout key={p._id} product={p} />)}
+          sortedProducts.map(p => (
+            <Product
+              layout={shouldReduceMotions ? false : true}
+              key={p._id}
+              product={p}
+              role="listitem"
+            />
+          ))}
       </div>
 
       <div className={styles.hhTitle}>

@@ -4,26 +4,40 @@ import { SortProps, SortEnum } from "./Sort.props";
 import SortIcon from "./sort.svg";
 
 export const Sort = ({ sort, setSort, className, ...props }: SortProps) => {
+  const isRatingSort = sort == SortEnum.Rating;
+  const isPriceSort = sort == SortEnum.Price;
+
   return (
     <div className={clsx(styles.sort, className)} {...props}>
-      <span
+      <div className={styles.sortName} id="sort">
+        Сортировка
+      </div>
+
+      <button
+        id="rating"
         onClick={() => setSort(SortEnum.Rating)}
         className={clsx({
-          [styles.active]: sort == SortEnum.Rating,
+          [styles.active]: isRatingSort,
         })}
+        aria-pressed={isRatingSort}
+        aria-labelledby="sort rating"
       >
         <SortIcon className={styles.sortIcon} />
         По рейтингу
-      </span>
-      <span
+      </button>
+
+      <button
+        id="price"
         onClick={() => setSort(SortEnum.Price)}
         className={clsx({
-          [styles.active]: sort == SortEnum.Price,
+          [styles.active]: isPriceSort,
         })}
+        aria-pressed={isPriceSort}
+        aria-labelledby="sort price"
       >
         <SortIcon className={styles.sortIcon} />
         По цене
-      </span>
+      </button>
     </div>
   );
 };
